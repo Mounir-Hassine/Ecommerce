@@ -3,8 +3,10 @@
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
+use Cocur\Slugify\Slugify;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use PhpParser\Node\Scalar\Float_;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
@@ -21,7 +23,7 @@ class Product
     private ?string $description = null;
 
     #[ORM\Column(nullable: true)]
-    private ?int $prix = null;
+    private ?int $price = null;
 
     public function getId(): ?int
     {
@@ -52,15 +54,25 @@ class Product
         return $this;
     }
 
-    public function getPrix(): ?int
+    public function getPrice(): ?int
     {
-        return $this->prix;
+        return $this->price;
     }
 
-    public function setPrix(?int $prix): static
+    public function setPrice(?int $price): static
     {
-        $this->prix = $prix;
+        $this->price = $price;
 
         return $this;
+    }
+    public function getFormattedPrice(): string
+    {
+        return number_format($this->price, 0, '', ' ');
+    }
+
+    public function getSlugify(): string
+    {
+        $slugify = new Slugify();
+        return $slugify->slugify($this->title);
     }
 }

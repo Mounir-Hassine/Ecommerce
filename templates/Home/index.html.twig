@@ -5,8 +5,34 @@
 {% block title %}Home{% endblock %}
 
 {% block body %}
-    <div class="container">
+    <div class="jumbotron text-center">
         <h1>Welcome to My Symfony Application!</h1>
         <p>This is the home page. Feel free to explore!</p>
+    </div>
+
+    <div class="container">
+        <h2>Les derniers produits</h2>
+        <div class="row flex">
+            {% for product in products %}
+                <div class="col-3">
+                    <div class="card">
+                       <div class="card-body">
+                           <h5 class="card-title">
+                               <a href="{{ path('products.show', {'slugify': product.slugify, 'id': product.id}) }}">
+                                   {{ product.title }}
+                               </a>
+                           </h5>
+                            <div class="text-primary" style="font-weight: bold; font-size: 2rem">
+                                {{ product.formattedPrice }} €
+                            </div>
+                           <p class="card-text">
+                               {{ product.description }}
+                           </p>
+
+                       </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}
