@@ -4,5 +4,9 @@
     <div class="container">
         <h1>Achter maintenant</h1>
     </div>
+    {% for product in data %}
+        {{ product.title }}
+        {{ product.price }}
+    {% endfor %}
 
 {% endblock %}

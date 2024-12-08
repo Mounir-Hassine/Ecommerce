@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container mt-4">
+    <h1>Gérer les biens</h1>
+
+    <table class="table table-striped mt-4">
+        <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+                <tr>
+                    <td>{{ product.title }}</td>
+                    <td>
+                        <a href="{{ path('admin_product_edit', {'id': product.id}) }}">
+                            <button class="btn btn-secondary">
+                                Modifier
+                            </button>
+                        </a>
+
+                        <a href="{{ path('admin_product_delete', {'id': product.id}) }}" >
+
+                            <button class="btn btn-danger">
+                                Supprimer
+                            </button>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="text-right">
+        <a href="{{ path('admin_product_new') }}">
+            <button class="btn btn-primary">
+                Ajouter un nouveau produit
+            </button>
+        </a>
+    </div>
+
+
+</div>
+{% endblock %}

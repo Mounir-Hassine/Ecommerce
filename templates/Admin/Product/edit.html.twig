@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Editer le produit</h1>
+            {{ form_start(form) }}
+            <div class="row">
+                <div class="col-md-4">{{ form_row(form.title) }}</div>
+                <div class="col-md-4">{{ form_row(form.price) }}</div>
+                <div class="col-md-4">{{ form_row(form.weight) }}</div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">{{ form_row(form.description) }}</div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">{{ form_row(form.merchant) }}</div>
+                <div class="col-md-4">{{ form_row(form.category) }}</div>
+            </div>
+                {{ form_widget(form) }}
+            <button type="submit" class="btn btn-primary">Sauvegarder</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

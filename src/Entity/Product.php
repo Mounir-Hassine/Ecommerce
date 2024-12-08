@@ -25,6 +25,45 @@ class Product
     #[ORM\Column(nullable: true)]
     private ?int $price = null;
 
+    #[ORM\Column]
+    private ?string $merchant = null;
+
+    #[ORM\Column]
+    private float $weight = 0;
+
+    #[ORM\Column]
+    private ?string $category = null;
+
+    public function getMerchant(): ?string
+    {
+        return $this->merchant;
+    }
+
+    public function getCategory(): ?string
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?string $category): void
+    {
+        $this->category = $category;
+    }
+
+    public function getWeight(): float
+    {
+        return $this->weight;
+    }
+
+    public function setWeight(float $weight): void
+    {
+        $this->weight = $weight;
+    }
+
+    public function setMerchant(?string $merchant): void
+    {
+        $this->merchant = $merchant;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
