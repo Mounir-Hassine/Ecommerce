@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 class AdminProductController extends AbstractController
 {
     private $entityManager;
@@ -47,18 +47,19 @@ class AdminProductController extends AbstractController
     }
 
     #[Route('/admin/new', name: 'admin_product_new')]
-    public function new(Request $request): Response
+    public function new(Request $request, ValidatorInterface $validator): Response
     {
         $product = new Product();
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
+        $errors = $validator->validate($product);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->persist($product);
             $this->entityManager->flush();
             $this->addFlash('success', 'Product created successfully');
             return $this->redirectToRoute('admin_product_all');
         }
-        return $this->render('admin/product/new.html.twig', ['form' => $form->createView(), 'product' => $product]);
+        return $this->render('admin/product/new.html.twig', ['form' => $form->createView(), 'product' => $product, 'errors' => $errors]);
     }
 
     #[Route('/admin/product_delete/{id}', name: 'admin_product_delete')]

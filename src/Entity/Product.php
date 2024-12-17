@@ -7,8 +7,11 @@ use Cocur\Slugify\Slugify;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use PhpParser\Node\Scalar\Float_;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
+#[UniqueEntity('title', message: 'Il existe déjà un produit avec ce titre')]
 class Product
 {
     #[ORM\Id]
@@ -17,13 +20,15 @@ class Product
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $title = null;
+    #[Assert\NotBlank]
+    private ?string $title;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $price = null;
+    #[ORM\Column(nullable: false)]
+    #[Assert\NotBlank]
+    private ?int $price;
 
     #[ORM\Column]
     private ?string $merchant = null;
