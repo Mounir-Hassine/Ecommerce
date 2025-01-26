@@ -39,6 +39,17 @@ class Product
     #[ORM\Column]
     private ?string $category = null;
 
+    #[ORM\Column(type: Types::STRING, nullable: true, length: 255)]
+    private ?string $imageFileName = null;
+
+    public function getImageFileName(): ?string
+    {
+        return $this->imageFileName;
+    }
+    public function setImageFileName(?string $imageFileName): void
+    {
+        $this->imageFileName = $imageFileName;
+    }
     public function getMerchant(): ?string
     {
         return $this->merchant;
